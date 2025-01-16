@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Update User</title>
 </head>
 <body>
-
+<h2>Update User</h2>
+<form action="#" th:action="@{/user-update}" th:object="${user}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <label for="firstName">First Name:</label>
+    <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name">
+    <label for="lastName">Last Name:</label>
+    <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">
+    <label for="mail">Mail:</label>
+    <input type="text" th:field="*{mail}" id="mail" placeholder="Mail">
+    <label for="age">Age:</label>
+    <input type="text" th:field="*{age}" id="age" placeholder="Age">
+    <button type="submit">Save</button>
+</form>
 </body>
 </html>
