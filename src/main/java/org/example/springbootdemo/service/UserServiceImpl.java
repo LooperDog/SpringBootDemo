@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
@@ -18,11 +20,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    @Transactional(readOnly = false)
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void saveUser(User user) {
         userRepository.save(user);
     }
@@ -33,6 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }

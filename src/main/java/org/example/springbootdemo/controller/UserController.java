@@ -5,11 +5,10 @@ import org.example.springbootdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -27,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/user-create")
-    public String CreateUserForm(User user) {
+    public String createUserForm(@ModelAttribute("user") User user) {
         return "user-create";
     }
 
@@ -38,8 +37,11 @@ public class UserController {
     }
     @GetMapping("/user-update/{id}")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
-        User user = userService.findById(id);
-        model.addAttribute("user", user);
+        Optional<User> userById = userService.findById(id);
+        if(userById.isPresent()) {
+            model.addAttribute("user", userById.get());
+            return "user-create";
+        }
         return "user-update";
     }
 
@@ -49,8 +51,8 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("user-delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
+    @GetMapping("user-delete/")
+    public String deleteUser(@RequestParam(value = "id",required = false) Long id) {
         userService.deleteUser(id);
         return "redirect:/users";
     }

@@ -5,16 +5,21 @@
   <title>Create user</title>
 </head>
 <body>
+<h2>Create User</h2>
 <form action="#" th:action="@{/user-create}" th:object="${user}" method="post">
-  <label for="firstName">First name</label>
-  <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name">
-  <label for="lastName">Last name</label>
-  <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">
-  <input type="submit" value="Create User">
-  <input type="text" th:field="*{mail}" id="mail" placeholder="Mail">
-  <input type="submit" value="Create User">
-  <input type="text" th:field="*{age}" id="age" placeholder="Age">
-  <input type="submit" value="Create User">
+  <label for="firstName">First name:</label>
+  <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name" required>
+  <br>
+  <label for="lastName">Last name:</label>
+  <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name" required>
+  <br>
+  <label for="mail">Mail:</label>
+  <input type="email" th:field="*{mail}" id="mail" placeholder="Mail" required>
+  <br>
+  <label for="age">Age:</label>
+  <input type="number" th:field="*{age}" id="age" placeholder="Age" required>
+  <br>
+  <button type="submit">Create User</button>
 </form>
 </body>
 </html>
